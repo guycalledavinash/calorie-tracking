@@ -1,3 +1,4 @@
+import { ImageUploader } from "@/components/upload/image-uploader";
 import { Button } from "@/components/ui/button";
 
 export function HomeHero() {
@@ -16,25 +17,13 @@ export function HomeHero() {
               Upload a food photo and get a practical calorie range estimate to support mindful tracking.
             </p>
           </div>
-          <div>
-            <Button size="lg" aria-label="Upload a food image">
-              Upload Image
-            </Button>
-          </div>
+          <p className="text-sm font-medium text-muted-foreground">
+            Upload Image below to preview your food photo. AI analysis is intentionally not implemented yet.
+          </p>
         </div>
 
         <div className="rounded-[1.5rem] border bg-muted/60 p-6">
-          <div className="flex aspect-[4/3] items-center justify-center rounded-[1.25rem] border border-dashed bg-background/80 text-center">
-            <div className="max-w-xs space-y-3 px-6">
-              <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-primary/10 text-2xl">
-                🍽️
-              </div>
-              <p className="font-medium text-foreground">Image preview placeholder</p>
-              <p className="text-sm leading-6 text-muted-foreground">
-                AI-powered analysis will be added after the MVP foundation is ready.
-              </p>
-            </div>
-          </div>
+          <ImageUploader />
         </div>
       </section>
     </main>

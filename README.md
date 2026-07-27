@@ -54,12 +54,17 @@ CalorieLens is an MVP web application for estimating the calorie range of food f
 ## Project Structure
 
 ```text
-prisma/                 Prisma schema and local database configuration
-src/app/                Next.js App Router routes and global styles
-src/components/home/    Home page feature components
-src/components/ui/      shadcn/ui-compatible reusable primitives
-src/lib/                Shared utility functions
+prisma/                   Prisma schema and local database configuration
+src/app/                  Next.js App Router routes and global styles
+src/components/home/      Home page feature components
+src/components/ui/        shadcn/ui-compatible reusable primitives
+src/components/upload/    Reusable upload components
+src/lib/                  Shared utility functions
 ```
+
+## Current Upload Behavior
+
+The home page supports drag-and-drop and click-to-upload image selection for JPG, JPEG, PNG, and WebP files up to 10MB. Selected images are previewed locally in the browser with filename, dimensions, and file size metadata. Users can replace or remove the selected image. No files are sent to a server yet, and no AI analysis is performed.
 
 ## Environment Variables
 
