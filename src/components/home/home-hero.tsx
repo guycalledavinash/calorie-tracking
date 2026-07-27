@@ -1,4 +1,5 @@
 import { ImageUploader } from "@/components/upload/image-uploader";
+import { Button } from "@/components/ui/button";
 
 export function HomeHero() {
   return (

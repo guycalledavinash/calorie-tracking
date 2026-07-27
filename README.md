@@ -1,6 +1,6 @@
 # CalorieLens
 
-CalorieLens is an MVP web application for estimating the calorie range of food from an uploaded image. This bootstrap includes the production-ready application foundation and a local image-upload experience only; AI image analysis, OpenAI Vision integration, and USDA FoodData Central integration are intentionally not implemented yet.
+CalorieLens is an MVP web application for estimating the calorie range of food from an uploaded image. This bootstrap includes the production-ready application foundation only; AI image analysis, OpenAI Vision integration, and USDA FoodData Central integration are intentionally not implemented yet.
 
 ## Tech Stack
 
