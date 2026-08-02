@@ -55,6 +55,9 @@ export async function POST(request: NextRequest) {
 
   try {
     const analysis = await analyzeFoodImage(image);
+    const enrichedAnalysis = await enrichFoodAnalysisWithNutrition(analysis);
+
+    return NextResponse.json(enrichedAnalysis);
     return NextResponse.json(analysis);
   } catch (error) {
     if (error instanceof OpenAIClientError) {
