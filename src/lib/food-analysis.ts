@@ -9,6 +9,27 @@ export type FoodAnalysisResult = {
   foods: FoodAnalysisFood[];
 };
 
+export type NutritionTotals = {
+  calories: number;
+  protein: number;
+  carbohydrates: number;
+  fat: number;
+};
+
+export type FoodNutrition = NutritionTotals & {
+  fdcId: number;
+  usdaDescription: string;
+};
+
+export type EnrichedFoodAnalysisFood = FoodAnalysisFood & {
+  nutrition: FoodNutrition | null;
+  nutritionError?: string;
+};
+
+export type EnrichedFoodAnalysisResult = {
+  foods: EnrichedFoodAnalysisFood[];
+};
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
