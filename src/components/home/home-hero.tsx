@@ -1,5 +1,4 @@
 import { ImageUploader } from "@/components/upload/image-uploader";
-import { Button } from "@/components/ui/button";
 
 export function HomeHero() {
   return (
@@ -18,7 +17,7 @@ export function HomeHero() {
             </p>
           </div>
           <p className="text-sm font-medium text-muted-foreground">
-            Upload Image below to preview your food photo. AI analysis is intentionally not implemented yet.
+            Upload a food photo to identify foods and view nutrition estimates.
           </p>
         </div>
 
