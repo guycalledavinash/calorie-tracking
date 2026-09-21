@@ -32,6 +32,54 @@ function isAcceptedImage(file: File) {
   );
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isFiniteNumber(value: unknown): value is number {
+  return typeof value === "number" && Number.isFinite(value);
+}
+
+function isStringArray(value: unknown): value is string[] {
+  return Array.isArray(value) && value.every((item) => typeof item === "string");
+}
+
+function isValidNutrition(value: unknown): boolean {
+  if (!isRecord(value)) {
+    return false;
+  }
+
+  return (
+    isFiniteNumber(value.fdcId) &&
+    typeof value.usdaDescription === "string" &&
+    isFiniteNumber(value.calories) &&
+    isFiniteNumber(value.protein) &&
+    isFiniteNumber(value.carbohydrates) &&
+    isFiniteNumber(value.fat)
+  );
+}
+
+function isValidEnrichedFoodAnalysisResult(value: unknown): value is EnrichedFoodAnalysisResult {
+  if (!isRecord(value) || !Array.isArray(value.foods)) {
+    return false;
+  }
+
+  return value.foods.every((food) => {
+    if (!isRecord(food)) {
+      return false;
+    }
+
+    return (
+      typeof food.name === "string" &&
+      isFiniteNumber(food.estimatedWeightGrams) &&
+      isFiniteNumber(food.confidence) &&
+      isStringArray(food.assumptions) &&
+      (food.nutrition === null || isValidNutrition(food.nutrition)) &&
+      (food.nutritionError === undefined || typeof food.nutritionError === "string")
+    );
+  });
+}
+
 export function ImageUploader() {
   const inputId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -138,7 +186,12 @@ export function ImageUploader() {
         return;
       }
 
-      setAnalysis(data as EnrichedFoodAnalysisResult);
+      if (!isValidEnrichedFoodAnalysisResult(data)) {
+        setError("We could not analyze this image. Please try again.");
+        return;
+      }
+
+      setAnalysis(data);
     } catch {
       setError("We could not reach the analysis service. Please check your connection and try again.");
     } finally {
@@ -205,7 +258,7 @@ export function ImageUploader() {
         <label
           htmlFor={inputId}
           className={cn(
-            "flex aspect-[4/3] cursor-pointer items-center justify-center rounded-[1.25rem] border border-dashed bg-background/80 p-6 text-center transition-colors focus-within:ring-2 focus-within:ring-primary",
+            "flex aspect-[4/3] cursor-pointer items-center justify-center rounded-[1.25rem] border border-dashed bg-background/80 p-6 text-center transition-colors focus-within:ring-2 focus-within:ring-primary/50",
             isDragging && "border-primary bg-primary/10",
           )}
           onDragEnter={(event) => {
