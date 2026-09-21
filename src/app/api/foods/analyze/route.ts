@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { analyzeFoodImage } from "@/lib/openai-food-vision";
 import { OpenAIClientError } from "@/lib/openai-client";
+import { enrichFoodAnalysisWithNutrition } from "@/lib/food-enrichment";
 
 const ACCEPTED_IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
 const MAX_IMAGE_SIZE_BYTES = 10 * 1024 * 1024;
@@ -58,7 +59,6 @@ export async function POST(request: NextRequest) {
     const enrichedAnalysis = await enrichFoodAnalysisWithNutrition(analysis);
 
     return NextResponse.json(enrichedAnalysis);
-    return NextResponse.json(analysis);
   } catch (error) {
     if (error instanceof OpenAIClientError) {
       console.error("OpenAI food analysis failed", error);
